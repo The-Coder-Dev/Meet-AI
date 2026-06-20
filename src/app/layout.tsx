@@ -7,7 +7,13 @@ const geist = Geist({
   subsets: ["latin"],
   weight: ['500','600','700','800']
 });
- 
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ['500','600','700','800']
+});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +29,7 @@ export default function RootLayout({
     <html
     suppressHydrationWarning
       lang="en"
-      className={`${geist.variable}  h-full antialiased`}
+      className={`${inter.className}  h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
