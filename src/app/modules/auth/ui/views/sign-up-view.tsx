@@ -2,6 +2,8 @@
 
 import { authClient } from "@/lib/auth-client";
 
+import { FaGoogle, FaGithub, FaGit } from "react-icons/fa"
+
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -75,8 +77,31 @@ export const SignUpView = () => {
 
       }
     );
+  }
+  
+   const onSocial = (provider: "github" | "google") => {
+    setError(null);
+    setPending(true)
 
-  };
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/"
+      },
+
+      {
+        onSuccess: () => {
+          setPending(false);
+        },
+        
+        onError: ({ error }) => {
+          setError(error.message)
+          setPending(false);
+        }
+
+      }
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -166,11 +191,11 @@ export const SignUpView = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <Button variant={"outline"} type="button" className="w-full">
-                  Google
+                <Button variant={"outline"} onClick={() => onSocial("google")} type="button" className="w-full">
+                  <FaGoogle />
                 </Button>
-                <Button variant={"outline"} type="button" className="w-full">
-                  GitHub
+                <Button variant={"outline"} onClick={() => onSocial("github")} type="button" className="w-full">
+                  <FaGithub />
                 </Button>
               </div>
 
